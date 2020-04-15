@@ -107,7 +107,7 @@ class GameAITests: XCTestCase {
         XCTAssertFalse(game(board: board, isWonBy: .x))
     }
     
-    func testWinCheckingDiagonal1() {
+    func testWinCheckingDiagonalBackslash() {
         var board = GameBoard()
         /*
          x - -
@@ -123,7 +123,7 @@ class GameAITests: XCTestCase {
         XCTAssertFalse(game(board: board, isWonBy: .o))
     }
     
-    func testWinCheckingDiagonal2() {
+    func testWinCheckingDiagonalSlash() {
         var board = GameBoard()
         /*
          x - o
