@@ -140,6 +140,31 @@ class GameAITests: XCTestCase {
     }
     
     func testIncompleteGame() {
+        var board = GameBoard()
+        var allTheCoordinates: [Coordinate] = []
+
+        // Put all the possible coordinates into an array
+        for x in 0...2 {
+            for y in 0...2 {
+                allTheCoordinates.append(Coordinate(x: x, y: y))
+            }
+        }
+        
+        // Shuffle them
+        allTheCoordinates.shuffle()
+        print("allTheCoordinates order: \(allTheCoordinates)")
+        
+        // Play the game one coordinate at a time.
+        for (index, coordinate) in allTheCoordinates.enumerated() {
+            try! board.place(mark: (index % 2 == 0) ? .x : .o,
+                             on: coordinate)
+
+            if (index == allTheCoordinates.count - 1) {
+                XCTAssertTrue(board.isFull, "⚠️ isFull: Failed after placing allTheCoordinates[\(index)] == \(coordinate)")
+            } else {
+                XCTAssertFalse(board.isFull, "⚠️ !isFull: Failed after placing allTheCoordinates[\(index)] == \(coordinate)")
+            }
+        }
     }
 
     func testCatsGame() {
