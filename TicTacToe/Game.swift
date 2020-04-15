@@ -9,17 +9,8 @@
 import Foundation
 
 struct Game {
-    
-    
-    /// Restarts the game to a fresh state with an empty board, and player X starting.
-    mutating internal func restart() {}
-    
-    
-    /// adds a mark for the currently active player at the given coordinate. Updates game state
-    /// - Parameter coordinate: <#coordinate description#>
-    /// - Throws: <#description#>
-    mutating internal func makeMark(at coordinate: Coordinate) throws {}
-    
+
+    // MARK: - Properites
     
     /// Externally read-only property for the game board. Game itself modifies this as the game progresses
     private(set) var board: GameBoard
@@ -32,4 +23,15 @@ struct Game {
     
     /// The player that won the game, either .x or .o. nil if the game is still running, or it's a cat's game (no one won).
     internal var winningPlayer: GameBoard.Mark?
+
+    // MARK: - Functions
+    
+    /// Restarts the game to a fresh state with an empty board, and player X starting.
+    mutating internal func restart() {}
+    
+    
+    /// adds a mark for the currently active player at the given coordinate. Updates game state
+    /// - Parameter coordinate: <#coordinate description#>
+    /// - Throws: <#description#>
+    mutating internal func makeMark(at coordinate: Coordinate) throws {}
 }
