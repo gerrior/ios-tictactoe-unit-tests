@@ -26,10 +26,21 @@ struct Game {
 
     // MARK: - Functions
     
+    init() {
+        board = GameBoard()
+        activePlayer = .x
+        gameIsOver = false
+        winningPlayer = nil
+    }
+    
     /// Restarts the game to a fresh state with an empty board, and player X starting.
-    mutating internal func restart() {}
-    
-    
+    mutating internal func restart() {
+        board = GameBoard()
+        activePlayer = .x
+        gameIsOver = false
+        winningPlayer = nil
+    }
+
     /// adds a mark for the currently active player at the given coordinate. Updates game state
     /// - Parameter coordinate: <#coordinate description#>
     /// - Throws: <#description#>

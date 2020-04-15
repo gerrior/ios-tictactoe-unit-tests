@@ -7,12 +7,18 @@
 //
 
 import XCTest
+@testable import TicTacToe
 
 class GameTests: XCTestCase {
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testReset() throws {
+        var game = Game()
+
+        game.restart()
+        XCTAssertTrue(game.board.isEmpty)
+        XCTAssertEqual(game.activePlayer, .x)
+        XCTAssertFalse(game.gameIsOver)
+        XCTAssertNil(game.winningPlayer)
     }
 
 }
