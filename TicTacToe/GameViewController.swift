@@ -25,7 +25,9 @@ class GameViewController: UIViewController, BoardViewControllerDelegate {
     
     func boardViewController(_ boardViewController: BoardViewController, markWasMadeAt coordinate: Coordinate) {
         do {
-            try board.place(mark: game.activePlayer!, on: coordinate)
+            if !game.gameIsOver {
+                try board.place(mark: game.activePlayer!, on: coordinate)
+            }
 
             try game.makeMark(at: coordinate)
         } catch {
