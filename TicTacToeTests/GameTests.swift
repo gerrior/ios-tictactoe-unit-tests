@@ -82,7 +82,35 @@ class GameTests: XCTestCase {
         /*
          x - o
          - o -
-         o x -
+         o x x
          */
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 0, y: 0))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .o)
+        try! game.makeMark(at: Coordinate(x: 2, y: 0))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 2, y: 2))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .o)
+        try! game.makeMark(at: Coordinate(x: 1, y: 1))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 1, y: 2))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .o)
+        try! game.makeMark(at: Coordinate(x: 0, y: 2))
+
+        // ActivePlayer does not advanced when game is over (observed)
+        XCTAssertEqual(game.activePlayer, .o, "⚠️ Unexpected activePlayer == \(game.activePlayer!)")
+        XCTAssertEqual(game.gameIsOver, true)
+        XCTAssertEqual(game.winningPlayer, .o)
     }
 }
