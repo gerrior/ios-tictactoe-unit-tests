@@ -21,4 +21,68 @@ class GameTests: XCTestCase {
         XCTAssertNil(game.winningPlayer)
     }
 
+    func testOverwriteMarkThrows() throws {
+
+        var game = Game()
+
+        try! game.makeMark(at: Coordinate(x: 0, y: 0))
+        XCTAssertThrowsError(try game.makeMark(at: Coordinate(x: 0, y: 0)))
+    }
+
+    func testCatGame() {
+        var game = Game()
+        /*
+         x x o
+         o o x
+         x x o
+         */
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 0, y: 0))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .o)
+        try! game.makeMark(at: Coordinate(x: 2, y: 0))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 1, y: 0))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .o)
+        try! game.makeMark(at: Coordinate(x: 0, y: 1))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 2, y: 1))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .o)
+        try! game.makeMark(at: Coordinate(x: 1, y: 1))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 1, y: 2))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .o)
+        try! game.makeMark(at: Coordinate(x: 2, y: 2))
+        XCTAssertEqual(game.gameIsOver, false)
+
+        XCTAssertEqual(game.activePlayer, .x)
+        try! game.makeMark(at: Coordinate(x: 0, y: 2))
+        // ActivePlayer does not advanced when game is over (observed)
+        XCTAssertEqual(game.activePlayer, .x, "⚠️ Unexpected activePlayer == \(game.activePlayer!)")
+        XCTAssertEqual(game.gameIsOver, true)
+        XCTAssertEqual(game.winningPlayer, nil)
+    }
+
+    func testOWinGame() {
+        var game = Game()
+        /*
+         x - o
+         - o -
+         o x -
+         */
+    }
 }

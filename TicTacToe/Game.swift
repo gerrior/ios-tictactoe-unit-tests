@@ -64,8 +64,6 @@ struct Game {
                 self.activePlayer = activePlayer == .x ? GameBoard.Mark.o : GameBoard.Mark.x
                 gameIsOver = false
             }
-        } catch {
-            NSLog("Illegal move")
         }
     }
 }
