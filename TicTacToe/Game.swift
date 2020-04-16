@@ -42,7 +42,30 @@ struct Game {
     }
 
     /// adds a mark for the currently active player at the given coordinate. Updates game state
-    /// - Parameter coordinate: <#coordinate description#>
-    /// - Throws: <#description#>
-    mutating internal func makeMark(at coordinate: Coordinate) throws {}
+    /// - Parameter coordinate: x and y coordiantes of where to make mark
+    /// - Throws: If game is over or it's an illegal move
+    mutating internal func makeMark(at coordinate: Coordinate) throws {
+        if gameIsOver == true {
+            NSLog("Game is over")
+            return
+        }
+        
+        guard let activePlayer = activePlayer else { return }
+        
+        do {
+            try board.place(mark: activePlayer, on: coordinate)
+            if game(board: board, isWonBy: activePlayer) {
+                gameIsOver = true
+                winningPlayer = activePlayer
+            } else if board.isFull {
+                gameIsOver = true
+                winningPlayer = nil
+            } else {
+                self.activePlayer = activePlayer == .x ? GameBoard.Mark.o : GameBoard.Mark.x
+                gameIsOver = false
+            }
+        } catch {
+            NSLog("Illegal move")
+        }
+    }
 }
